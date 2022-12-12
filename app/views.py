@@ -7,10 +7,18 @@ from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from backend.models import *
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 def index(request):
     form = CreateContactForm()
+
+    subject = "Sending an email with Django"
+    message = "Une nouvelle demande de création de compte à été initier."
+    # send the email to the recipent
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, ['test@com.fr'])
+
     if request.method=='POST':
         form = CreateContactForm(request.POST)
         if form.is_valid():
@@ -20,7 +28,7 @@ def index(request):
     context = {
         'form' : form,
     }  
-    return render(request, 'frontend/index-6.html', context)
+    return render(request, 'frontend/index.html', context)
 
 @login_required(login_url='/login/')
 def MyProfile(request):
@@ -131,7 +139,11 @@ def RegisterPro(request):
             user.profile.is_configured = False
             user.profile.adresse = form2.cleaned_data.get('adresse')
             user.profile.telephone = form2.cleaned_data.get('telephone')
-            user.save()     
+            user.save()    
+
+            
+            
+
             return redirect('app:notification-register')
     context = {
         'form' : form,
@@ -194,3 +206,6 @@ def EnterBackEnd(request):
         return render(request, 'backend/index.html')
 
 
+
+
+           
