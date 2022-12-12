@@ -59,8 +59,13 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
 class Societe(models.Model):
     gerant = models.OneToOneField(User, on_delete=models.CASCADE)
     designation = models.CharField(max_length =100, null=True, blank=True)
+
     pays = CountryField(null=True, blank=True)
     adresse = models.CharField(max_length=30, blank=True)
+    adresse_2 = models.CharField(max_length=200, null=True, blank=True)
+    num_dep = models.CharField(max_length=2, null=True, blank=True)
+    rue = models.CharField(max_length=40, null=True, blank=True)
+
     telephone = models.CharField(max_length=13, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     secteur = models.ForeignKey(Secteur, null=True, blank=True ,on_delete=models.DO_NOTHING)

@@ -20,7 +20,7 @@ def index(request):
     context = {
         'form' : form,
     }  
-    return render(request, 'frontend/index-onepage.html', context)
+    return render(request, 'frontend/index-6.html', context)
 
 @login_required(login_url='/login/')
 def MyProfile(request):
