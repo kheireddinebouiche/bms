@@ -1,0 +1,34 @@
+{% extends 'backend/base.html' %}
+{% load static %}
+{% block content %}
+
+<body class="sb-nav-fixed">      
+    <div id="layoutSidenav">
+        {% include 'backend/nav.html' %}
+        
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Secteur D'activité</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item"><a href="{% url 'backend:index' %}">Tableau de bord</a></li>
+                        <li class="breadcrumb-item active">Ajouter un secteur</li>
+                    </ol>
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <form method="post">
+                                {% csrf_token %}
+                                {{form|crispy}}
+                            </br>
+                                <center><a class="btn btn-primary" type="submit">Enregistrer</a></center>
+                            </form>
+                        </div>
+                    </div>                  
+                </div>
+            </main>
+            {% include 'backend/footer.html' %}
+        </div>
+    </div>
+
+{% endblock content %}

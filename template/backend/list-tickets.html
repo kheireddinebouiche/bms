@@ -1,0 +1,51 @@
+{% extends 'backend/base.html' %}
+{% load static %}
+{% block content %}
+<body class="sb-nav-fixed">        
+    <div id="layoutSidenav">
+        {% include 'backend/nav.html' %}
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Tickets</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item"><a href="{% url 'backend:index' %}">Tableau de bord</a></li>
+                        <li class="breadcrumb-item active">Liste des Tickets</li>
+                    </ol>
+                    
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <table id="datatablesSimple">
+                                <thead>
+                                    <tr>
+                                        <th>ID.</th>
+                                        <th>Utilisateur</th>
+                                        <th>Message</th>
+                                        <th>Date de création</th>
+                                        <th>Dérniere modification</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    {% for r in result %}
+                                    <tr>
+                                        <td>{{r.id}}</td>
+                                        <td>{{r.user.username}}</td>
+                                        <td>{{r.message}}</td>
+                                        <td>{{r.created_at}}</td>
+                                        <td>{{r.updated_at}}</td>
+                                        <td>actions</td>
+                                    </tr>
+                                    {% endfor %}           
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            {% include 'backend/footer.html' %}
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,178 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block content %}
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		{% include 'frontend/header.html' %}
+
+		<!-- Page Title
+		============================================= -->
+		<section id="page-title">
+
+			<div class="container clearfix">
+				<h1>Incription</h1>
+				<span>Choisissez votre profile</span>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="#">Accueil</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Inscription - étape 1</li>
+				</ol>
+			</div>
+
+		</section><!-- #page-title end -->
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+			<div class="content-wrap">
+				<div class="container">
+
+
+					<div id="section-pricing" class="page-section p-0 m-0">
+
+						<div class="pricing-tenure-switcher row align-items-center justify-content-center mb-4" data-container="#pricing-switch">
+							<span class="pts-left col-auto">Mois</span>
+							<div class="pts-switcher col-auto">
+								<div class="switch">
+									<input id="switch-toggle-pricing-tenure" class="switch-toggle switch-toggle-round" type="checkbox">
+									<label for="switch-toggle-pricing-tenure" class="mb-0"></label>
+								</div>
+							</div>
+							<span class="pts-right col-auto">Année</span>
+						</div>
+
+						<div id="pricing-switch" class="row pricing col-mb-50 mb-0">
+							<div class="col-md-6">
+
+								<div class="pricing-box pricing-simple p-5 bg-light border-top border-primary text-center">
+									<div class="pricing-title">
+										<span>Compte</span>
+										<h3>Client</h3>
+									</div>
+									<div class="pricing-price">
+										<span class="price-unit">&euro;</span>0
+									</div>
+									<div class="pricing-action">
+										<a href="{% url 'app:register_client' %}" class="btn btn-primary btn-lg">Choisir</a>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="col-md-6">
+
+								<div class="pricing-box pricing-simple p-5 bg-light border-top border-danger text-center">
+									<div class="pricing-title">
+										<span class="text-danger">Compte</span>
+										<h3>Professionel</h3>
+									</div>
+									<div class="pricing-price">
+										<div class="pts-switch-content-left"><span class="price-unit">&euro;</span>0</div>
+										<div class="pts-switch-content-right"><span class="price-unit">&euro;</span>0</div>
+									</div>
+									<div class="pricing-action">
+										<a href="{% url 'app:register-pro' %}" class="btn btn-danger btn-lg">Choisir</a>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+					<div class="fancy-title title-border title-center">
+						<h3>Comparison Table</h3>
+					</div>
+
+					<table class="table table-hover table-comparison mb-0">
+					  <thead>
+						<tr>
+						  <th>&nbsp;</th>
+						  <th>Starter</th>
+						  <th>Professional</th>
+						  <th>Business</th>
+						</tr>
+					  </thead>
+					  <tbody>
+						<tr>
+						  <td>Space</td>
+						  <td>1 GB</td>
+						  <td>5 GB</td>
+						  <td>20 GB</td>
+						</tr>
+						<tr>
+						  <td>Bandwidth</td>
+						  <td>10 GB</td>
+						  <td>100 GB</td>
+						  <td>500 GB</td>
+						</tr>
+						<tr>
+						  <td>Email Accounts</td>
+						  <td>100</td>
+						  <td>1000</td>
+						  <td>5000</td>
+						</tr>
+						<tr>
+						  <td>MySQL Accounts</td>
+						  <td>100</td>
+						  <td>1000</td>
+						  <td>5000</td>
+						</tr>
+						<tr>
+						  <td>SSH Access</td>
+						  <td><i class="icon-remove"></i></td>
+						  <td><i class="icon-remove"></i></td>
+						  <td><i class="icon-ok"></i></td>
+						</tr>
+						<tr>
+						  <td>SMTP Management</td>
+						  <td><i class="icon-remove"></i></td>
+						  <td><i class="icon-remove"></i></td>
+						  <td><i class="icon-ok"></i></td>
+						</tr>
+						<tr>
+						  <td>FTP Access</td>
+						  <td><i class="icon-remove"></i></td>
+						  <td><i class="icon-ok"></i></td>
+						  <td><i class="icon-ok"></i></td>
+						</tr>
+						<tr>
+						  <td>Google Adwords Credit</td>
+						  <td><i class="icon-remove"></i></td>
+						  <td><i class="icon-ok"></i></td>
+						  <td><i class="icon-ok"></i></td>
+						</tr>
+						<tr>
+						  <td>Monthly Price</td>
+						  <td>Free</td>
+						  <td>$9.99</td>
+						  <td>$19.99</td>
+						</tr>
+						<tr>
+						  <td>Quaterly Price</td>
+						  <td>Free</td>
+						  <td>$19.99</td>
+						  <td>$49.99</td>
+						</tr>
+						<tr>
+						  <td>Yearly Price</td>
+						  <td>Free</td>
+						  <td>$69.99</td>
+						  <td>$149.99</td>
+						</tr>
+						<tr>
+						  <td>&nbsp;</td>
+						  <td><a href="#" class="btn btn-secondary">Sign Up</a></td>
+						  <td><a href="#" class="btn btn-secondary">Sign Up</a></td>
+						  <td><a href="#" class="btn btn-secondary">Sign Up</a></td>
+						</tr>
+					  </tbody>
+					</table>
+
+				</div>
+			</div>
+		</section><!-- #content end -->
+
+{% endblock content %}
