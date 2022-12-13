@@ -1,22 +1,10 @@
+{% extends 'frontend/base.html' %}
+{% load crispy_forms_tags %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Qexal - Responsive Bootstrap 5 Landing Page Template</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Premium Bootstrap 5 Landing Page Template" />
-        <meta name="keywords" content="bootstrap 5, premium, marketing, multipurpose" />
-        <meta content="Themesbrand" name="author" />
-        <!-- favicon -->
-        <link rel="shortcut icon" href="{% static 'frontend_style/images/favicon.ico' %}" />
 
-        <!-- css -->
-        <link href="{% static 'frontend_style/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
-        <link href="{% static 'frontend_style/css/materialdesignicons.min.css' %}" rel="stylesheet" type="text/css" />
-        <link href="{% static 'frontend_style/css/style.min.css' %}" rel="stylesheet" type="text/css" />
-    </head>
+{% block title %} Authentification {% endblock title %}
 
+{% block content %}
     <body>
         <!-- Loader -->
         <div id="preloader">
@@ -83,13 +71,8 @@
         </section>
         <!-- end section -->
 
-        <!-- javascript -->
-        <script src="{% static 'frontend_style/js/bootstrap.bundle.min.js' %}"></script>
-        <script src="{% static 'frontend_style/js/smooth-scroll.polyfills.min.js' %}"></script>
+        {% include 'frontend/footer.html '%}
 
-        <script src="https://unpkg.com/feather-icons"></script>
-
-        <!-- App Js -->
-        <script src="{% static 'frontend_style/js/app.js' %}"></script>
+        {% include 'frontend/scripts.html' %}
     </body>
-</html>
+{% endblock content %}
