@@ -1,14 +1,27 @@
-<! DOCTYPE html>
-<html>
-    <head><title>Connexion</title></head>
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block title %} Incription - Client {% endblock title %}
+{% load crispy_forms_tags %}
 
-    <body>
+ {% block content %}
+
+ {% include 'frontend/navbar-1.html' %}
+
+
+ <section class="section">
+<div class="container">
 
     <form method="POST">
         {% csrf_token %}
-        {{form.as_p}}
+        {{form_crispy}}
         <button type="submit">Inscription</button>
     </form>
 
-</body>
-</html>
+
+</div>
+</section>
+    
+
+
+{% include 'frontend/footer.html' %}
+{% endblock content %}
