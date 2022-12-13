@@ -10,7 +10,7 @@ urlpatterns = [
     path('', index, name='index'),
     path('login/',LoginView.as_view(), name="login"),
     path('logout/',LogoutView.as_view(), name="logout"), 
-    path('mon_profile/', MyProfile, name='mon-profile'),
+    path('mon-profile/', MyProfile, name='mon-profile'),
     path('register-client/', RegisterClient, name="register_client"),
     path('register-pro/', RegisterPro, name="register-pro"),
     path('liste-professionnels/',ListPro, name="liste-pros"),
@@ -20,5 +20,6 @@ urlpatterns = [
     path('mise-a-jours-profile/', UpdateProfile, name="mise-a-jour-profile"),
     path('conditions-general-d-utilisation/',CGU, name="cgu"),
     path('terms/',Terms, name="terms"),
+
     
 ]
