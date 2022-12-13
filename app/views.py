@@ -123,7 +123,7 @@ def RegisterClient(request):
         'form': form,
     }
 
-    return render(request, 'frontend/register.html',context)
+    return render(request, 'register.html',context)
     
 @transaction.atomic
 def RegisterPro(request):
