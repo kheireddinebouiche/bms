@@ -146,7 +146,7 @@ def RegisterPro(request):
         'form' : form,
         'form2' : form2,
     }   
-    return render(request, 'frontend/login-register-3.html',context )
+    return render(request, 'frontend/register-pro.html',context )
 
 
 def RedirectRegister(request):
