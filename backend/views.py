@@ -6,86 +6,140 @@ from app.forms import *
 from django.contrib.auth.decorators import login_required
 
 def index(request):
-    configure = Profile.objects.get(user = request.user)
 
-    context = {
-        'configure' : configure,
-    }
+    if request.user.is_entreprise == True:
 
-    return render(request,"backend/index.html", context)
+        configure = Profile.objects.get(user = request.user)
+
+        context = {
+            'configure' : configure,
+        }
+
+        return render(request,"backend/index.html", context)
+
+    else:
+
+        return redirect('app:index')
 
 ############################################## GESTION DE LA SOCIETE ##################################################################
+@login_required(login_url='/login/')
 def ConfigreMySociete(request):
-    form = CreateSocieteForm()
-    if request.method == 'POST':
-        form = CreateSocieteForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('backend:index')
 
-        else:
-            return render(request, 'lien vers page erreur')
+    if request.user.is_entreprise == True:
 
-    context = {
-        'form' : form,
-    }
 
-    return render(request, 'backend/configuration-societe.html', context)
+        form = CreateSocieteForm()
+        if request.method == 'POST':
+            form = CreateSocieteForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('backend:index')
+
+            else:
+                return render(request, 'lien vers page erreur')
+
+        context = {
+            'form' : form,
+        }
+
+        return render(request, 'backend/configuration-societe.html', context)
+
+    else: 
+
+        return redirect('app:index')
 
 ############################################## ! GESTION DE LA SOCIETE ################################################################
 
 ############################################## GESTION DES PROFILS ####################################################################
 @login_required(login_url='/login/')
 def ListPros(request):
-    result = Profile.objects.filter(is_entreprise = True)
-    context = {
-        'result' : result,
-    }
 
-    return render(request, 'backend/list_pros.html', context)
+    if request.user.is_entreprise == True:
+
+        result = Profile.objects.filter(is_entreprise = True)
+        context = {
+            'result' : result,
+        }
+
+        return render(request, 'backend/list_pros.html', context)
+
+    else:
+
+        return redirect('app:index')
 
 @login_required(login_url='/login/')
 def ListClient(request):
-    result = Profile.objects.filter(is_entreprise = False)
-    context = {
-        'result': result,
-    }
-    return render(request, 'backend/list_client.html', context)
+
+    if request.user.is_entreprise == True:
+
+        result = Profile.objects.filter(is_entreprise = False)
+        context = {
+            'result': result,
+        }
+        return render(request, 'backend/list_client.html', context)
+    else:
+
+        return redirect('app:index')
 
 @login_required(login_url='/login/')
 def ActivateProfile(request, pk):
-    result = User.objects.get(id = pk)
-    result.is_active = True
-    result.save()
-    return redirect('backend:liste-profs')
+    if request.user.is_staff == True:
+        result = User.objects.get(id = pk)
+        result.is_active = True
+        result.save()
+        return redirect('backend:liste-profs')
+    else:
+        return redirect('app:index')
 
 @login_required(login_url='/login/')
 def DeactivateProfile(request, pk):
-    result = User.objects.get(id=pk)
-    result.is_active = False
-    result.save()
-    return redirect('backend:liste-profs')
+    if request.user.is_staff == True:
+
+        result = User.objects.get(id=pk)
+        result.is_active = False
+        result.save()
+        return redirect('backend:liste-profs')
+
+    else:
+
+        return redirect('app:index')
 
 @login_required(login_url='/login/')
 def DetailsProfile(request, pk):
-    result = Profile.objects.filter(id = pk)
-    context = {
-        'result' : result,
-    }
-    return render(request, 'backend/details-profile.html', context)
+    if request.user.is_entreprise == True:
+
+        result = Profile.objects.filter(id = pk)
+        context = {
+            'result' : result,
+        }
+        return render(request, 'backend/details-profile.html', context)
+
+    else: 
+
+        return redirect('app:index')
 
 @login_required(login_url='/login/')
 def SuspendProfile(request, pk):
-    result = Profile.objects.get(id = pk)
-    result.is_active = False
-    result.save()
-    return redirect('backend:details-compte')
+    if request.user.is_staff == True:
+
+        result = Profile.objects.get(id = pk)
+        result.is_active = False
+        result.save()
+        return redirect('backend:details-compte')
+
+    else:
+
+        return redirect('app:index')
 
 @login_required(login_url='/login/')
 def RemovePofile(request, pk):
-    result = Profile.objects.get(id = pk)
-    result.Delete()
-    return redirect('backend:index')
+    if request.user.is_staff == True:
+        result = Profile.objects.get(id = pk)
+        result.Delete()
+        return redirect('backend:index')
+    else:
+
+        return redirect('app:index')
 
 ##############################################! GESTION DES PROFILS ###################################################################
 

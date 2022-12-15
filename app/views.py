@@ -13,7 +13,7 @@ from django.conf import settings
 
 def index(request):
     form = CreateContactForm()
-
+    
     subject = "Sending an email with Django"
     message = "Une nouvelle demande de création de compte à été initier."
     # send the email to the recipent
@@ -123,7 +123,7 @@ def RegisterClient(request):
         'form': form,
     }
 
-    return render(request, 'register.html',context)
+    return render(request, 'registration/register.html',context)
     
 @transaction.atomic
 def RegisterPro(request):
@@ -139,10 +139,7 @@ def RegisterPro(request):
             user.profile.is_configured = False
             user.profile.adresse = form2.cleaned_data.get('adresse')
             user.profile.telephone = form2.cleaned_data.get('telephone')
-            user.save()    
-
-            
-            
+            user.save()     
 
             return redirect('app:notification-register')
     context = {
@@ -164,38 +161,79 @@ def RedirectRegister(request):
 
 @login_required(login_url='/login/')
 def CreateSecteur(request):
-    form = SecteurCreateForm()
-    if request.method == 'POST':
-        form = SecteurCreateForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('backend:index')
-        else:
-            return HttpResponse('Une erreur est survenu lors du traitement de la request')
 
-    context = {
-        'form':form,
-    }
+    if request.user.is_entreprise == True:
 
-    return render(request, 'backend/creer-un-secteur.html', context)
+        form = SecteurCreateForm()
+        if request.method == 'POST':
+            form = SecteurCreateForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('backend:index')
+            else:
+                return HttpResponse('Une erreur est survenu lors du traitement de la request')
+
+        context = {
+            'form':form,
+        }
+
+        return render(request, 'backend/creer-un-secteur.html', context)
+    
+    else:
+
+        return redirect('app:index')
 
 @login_required(login_url='/login/')
 def ListeSecteur(request):
-    result = Secteur.objects.all()
+    if request.user.is_entreprise == True:
 
-    context = {
-        'result' : result,
-    }
+        result = Secteur.objects.all()
 
-    return render(request, 'backend/list-des-secteurs.html', context)
+        context = {
+            'result' : result,
+        }
+
+        return render(request, 'backend/list-des-secteurs.html', context)
+    
+    else:
+
+        return redirect('app:index')
 
 @login_required(login_url='/login/')
-def UpdateSecteur(request):
-    pass
+def UpdateSecteur(request, pk):
+
+    if request.user.is_entreprise == True:
+
+        result = Secteur.objects.get(id=pk)
+        form = SecteurCreateForm(instance=result)
+        if request.method == "POST":
+            form = SecteurCreateForm(request.POST, instance=result)
+            if form.is_valid():
+                form.save()
+
+                return redirect('backend:liste-des-secteurs')
+        
+
+        context = {
+            'form': form,
+        }
+
+        return render(request, 'backend/mise-a-jours-secteur.html', context)
+    else:
+
+        return redirect(request, 'app:index')
 
 @login_required(login_url='/login/')
-def RemoveSecteur(request):
-    pass
+def RemoveSecteur(request, pk):
+    if request.user.is_entreprise == True:
+
+        result = Secteur.objects.get(id=pk)
+        result.delete()
+        return redirect('backend:liste-des-secteurs')
+
+    else:
+
+        return redirect('app:index')
 
 ######################################################################################################################################
 #############################################################  ! SECTEUR #############################################################
@@ -204,6 +242,8 @@ def RemoveSecteur(request):
 def EnterBackEnd(request):
     if request.user.profile.is_entreprise == True:
         return render(request, 'backend/index.html')
+    else:
+        return render(request, 'frontend/index.html')
 
 
 

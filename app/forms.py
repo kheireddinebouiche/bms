@@ -11,6 +11,26 @@ class ClientCreateForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username','email','first_name','last_name','password1')
+
+        widgets = {
+            'username' : TextInput(attrs={
+                'placeholder' : "Veuillez entrer un nom d'utilisateur...",
+                
+            }),
+            'email' : TextInput(attrs={
+                'placeholder' : "Veuillez entrer une adresse email valide...",
+                
+            }),
+
+            'first_name' : TextInput(attrs={
+                'placeholder' : "Votre prénom...",
+                
+            }),
+            'last_name' : TextInput(attrs={
+                'placeholder' : "Votre nom...",
+                
+            })
+        }
         
 
 class ProCreateForm(UserCreationForm):

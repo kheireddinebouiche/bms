@@ -4,7 +4,7 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top navdar-custom" id="navbar">
     <div class="container">
         <!-- LOGO -->
-        <a class="navbar-brand logo" href="index-1.html">
+        <a class="navbar-brand logo" href="{% url 'app:index' %}">
             <img src="{% static 'frontend_style/images/logo-dark.png' %}" alt="" class="logo-dark" height="28" />
             <img src="{% static 'frontend_style/images/logo-light.png' %}" alt="" class="logo-light" height="28" />
         </a>
@@ -14,7 +14,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav ms-auto navbar-center" id="navbar-navlist">
                 <li class="nav-item">
-                    <a href="#home" class="nav-link">Accueil</a>
+                    <a href="{% url 'app:index' %}" class="nav-link">Accueil</a>
                 </li>
                 <li class="nav-item">
                     <a href="#services"  class="nav-link">Nos Services</a>
@@ -32,7 +32,11 @@
                 <a href="{% url 'app:login' %}" class="btn btn-sm rounded-pill nav-btn ms-lg-2">Se connecter</a>
                 <a href="{% url 'app:register_client' %}" class="btn btn-sm rounded-pill nav-btn ms-lg-2">Créer un compte</a>
             {% else %}
-                <a href="{% url 'app:mon-profile' %}" class="btn btn-sm rounded-pill nav-btn ms-lg-3">Mon compte</a>
+                {% if request.user.is_entreprise %}
+                    <a href="{% url 'app:administration' %}" class="btn btn-sm rounded-pill nav-btn ms-lg-3">Mon compte</a>
+                {% else %}
+                    <a href="{% url 'app:mon-profile' %}" class="btn btn-sm rounded-pill nav-btn ms-lg-3">Mon compte</a>
+                {% endif %}
             {% endif %}
 
             

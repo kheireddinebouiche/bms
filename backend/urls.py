@@ -30,6 +30,7 @@ urlpatterns = [
 
    path('ajouter-un-secteur/',CreateSecteur, name="ajouter-un-secteur"),
    path('liste-des-secteurs/',ListeSecteur,name="liste-des-secteurs"),
+   path('supprimer-un-secteur/',RemoveSecteur, name="supprimer-un-secteur"),
 
    path('configuration-societe/', ConfigreMySociete, name="configuration-societe"),
    

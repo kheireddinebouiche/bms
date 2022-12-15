@@ -9,14 +9,13 @@
 
 
  <section class="section">
-<div class="container">
-
-    <form method="POST">
-        {% csrf_token %}
-        {{form_crispy}}
-        <button type="submit">Inscription</button>
-    </form>
-
+    <div class="container col-md-6 py-4">
+        <center><h2 class="mt-4 mb-3">Inscription</h2></center>
+        <form method="POST">
+            {% csrf_token %}
+            {{form|crispy}}
+        <center> <button type="submit" class="btn btn-primary mt-4 " style="border-radius:50px; padding-left:20px; padding-right:20px;">Inscription</button></center>
+        </form>
 
 </div>
 </section>
