@@ -87,7 +87,7 @@ def SearchByCat(request):
 
 
 def CGU(request):
-    return render(request, 'frontend/cgv.html')
+    return render(request, 'frontend/cgu.html')
 
 def Terms(request):
     return render(request, 'frontend/terms.html')
@@ -137,19 +137,27 @@ def RegisterPro(request):
             user.is_active = False
             user.profile.is_entreprise = True
             user.profile.is_configured = False
+            user.profile.pays = form2.cleaned_data.get('pays')
             user.profile.adresse = form2.cleaned_data.get('adresse')
             user.profile.telephone = form2.cleaned_data.get('telephone')
-            user.save()     
+            user.save()
 
             return redirect('app:notification-register')
+
     context = {
         'form' : form,
         'form2' : form2,
     }   
-    return render(request, 'frontend/register-pro.html',context )
+    return render(request, 'registration/register-pro.html',context )
 
-
+#redirection aprés inscription
 def RedirectRegister(request):
+
+    subject = "Sending an email with Django"
+    message = "Une nouvelle demande de création de compte à été initier."
+    # send the email to the recipent
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, ['test@com.fr'])
+    
     return render(request,'frontend/redirect-success-pro.html')
 
 #############################################################  ! INSCRIPTION CLIENT & PRO  ###########################################

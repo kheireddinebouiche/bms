@@ -1,0 +1,35 @@
+{% extends 'frontend/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} Devenir membre {% endblock title %}
+
+{% block content %}
+
+{% include 'frontend/navbar-1.html' %}
+
+
+ <section class="section">
+    <div class="container col-md-6 py-4">
+        <center><h2 class="mt-4 mb-3">Devenir membre</h2></center>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    {{form|crispy}}
+                </div>
+
+                <div class="col-md-6">
+                    {{form2|crispy}}
+                </div>
+            </div>       
+        <center> <button type="submit" class="btn btn-primary mt-4 " style="border-radius:50px; padding-left:20px; padding-right:20px;">Inscription</button></center>
+        </form>
+
+</div>
+</section>
+    
+
+
+{% include 'frontend/footer.html' %}
+
+
+{% endblock content %}

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django_countries.fields import CountryField
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Secteur(models.Model):
@@ -34,10 +35,13 @@ class Categorie(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    pays = CountryField(null=True, blank=True)
     adresse = models.CharField(max_length=30, blank=True)
+
+    secteur = models.ForeignKey(Secteur, null=True, blank=True, on_delete=models.DO_NOTHING)
     image = models.ImageField(null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
-    telephone = models.CharField(null=True, blank=True, max_length=100)   
+    telephone = PhoneNumberField(null=True, blank=True)  
     date_naissance = models.DateField(null=True, blank=True)
     is_client = models.BooleanField(null=True,blank=True, default=False)
     is_entreprise = models.BooleanField(null=True, blank=True)

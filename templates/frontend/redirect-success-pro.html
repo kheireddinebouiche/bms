@@ -1,0 +1,26 @@
+{% extends 'frontend/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %} Notification - Devenir Membre {% endblock title %}
+
+{% block content %}
+
+{% include 'frontend/navbar-1.html' %}
+
+
+ <section class="section" style="height: 600px;">
+    <div class="container col-md-6 py-4">
+        <center><h2 class="mt-4 mb-3">Notification </h2> </center>
+        <span><center>
+            Votre demande à été bien reçu ! </br>
+            Une réponse à votre demande vous sera communiquer par mail dans les plus brefs délais.
+        </center>
+        </span        
+</div>
+</section>
+    
+
+{% include 'frontend/footer.html' %}
+
+
+{% endblock content %}
