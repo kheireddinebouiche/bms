@@ -5,17 +5,23 @@ from app.models import *
 from app.forms import *
 from django.contrib.auth.decorators import login_required
 
-def index(request):
+def BackIndex(request):
 
-    if request.user.is_entreprise == True:
+    if request.user.profile.is_entreprise == True or request.user.is_authenticated:
 
-        configure = Profile.objects.get(user = request.user)
+        if request.user.profile.is_configured == False:
 
-        context = {
-            'configure' : configure,
-        }
+            configure = Profile.objects.get(user = request.user)
 
-        return render(request,"backend/index.html", context)
+            context = {
+                'configure' : configure,
+            }
+
+            return render(request,"backend/index.html", context)
+
+        else:
+
+            return HttpResponse("Vous n'avez pas encore configurer les informations de votre entreprise")
 
     else:
 
@@ -54,7 +60,7 @@ def ConfigreMySociete(request):
 @login_required(login_url='/login/')
 def ListPros(request):
 
-    if request.user.is_entreprise == True:
+    if request.user.is_staff == True:
 
         result = Profile.objects.filter(is_entreprise = True)
         context = {
@@ -80,6 +86,22 @@ def ListClient(request):
     else:
 
         return redirect('app:index')
+
+@login_required(login_url='/login/')
+def SellerIndividual(request):
+    result = Profile.objects.filter(is_seller_individual = True)
+    context = {
+        'result' : result,
+    }
+    return render(request, 'backend/list-seller.html',context)
+
+@login_required(login_url='/login/')
+def SellerEntreprise(request):
+    result = Profile.objects.filter(is_seller_entrepris = True)
+    context = {
+        'result' : result,
+    }
+    return render(request, 'backend/list-seller.html', context)
 
 @login_required(login_url='/login/')
 def ActivateProfile(request, pk):
@@ -207,24 +229,116 @@ def RemoveService(request):
 def SearchService(request):
     pass
 
+############################################## GESTION DES SERVICES ##################################################################
+
+################################################ GESTION DES CATEGORIES ##############################################################
+
+@login_required(login_url='/login/')
+def CreateCategorie(request):
+    if request.user.is_staff:
+        form = CategorieForm()
+        if request.method == 'POST':
+            form = CategorieForm(request.POST)
+            form.save()
+
+            return redirect('backend:list-categorie')
+        
+        context = {
+            'form': form,
+        }
+
+        return render(request, 'backend/create-categorie.html', context)
+    else:
+        return redirect('app:index')
+
+@login_required(login_url='/login/')
+def ListeCategorie(request):
+    if request.user.is_staff:
+        result = Categorie.objects.all()
+        context = {
+            'result' : result
+        }
+        return render(request, 'backend/list-categorie.html', context)
+    else:
+        return redirect('app:index')
+
+@login_required(login_url='/login/')
+def UpdateCategorie(request, pk):
+    if request.user.is_staff == True:
+        result = Categorie.objects.get(id=pk)
+        form = CategorieForm(instance=result)
+        if request.method == 'POST':
+            form = CategorieForm(request.POST, instance=result)
+            if form.is_valid():
+                form.save()
+                return redirect('backend:list-categorie')
+            else:
+                return HttpResponse('erreur')
+        
+        context = {
+            'form' : form
+        }
+
+        return render(request, 'backend/update-categorie.html', context)
+
+    else:
+
+        return redirect('backend:index')
+
+@login_required(login_url='/login/')
+def DeleteSecteur(request, pk):
+    if request.user.is_staff:
+        result = Categorie.objects.get(id=pk)
+        result.delete()
+        return redirect('backend:list-categorie')
+    else:
+        return redirect('app:index')
+
+############################################# FIN GESTION DES CATEGROEIS #############################################################
+
+
 ######################################### ! GESTION DES SERVICES #####################################################################
 
+@login_required(login_url='/login/')
 def ConfigurationSociete(request):
-    form = ConfigurationSocieteForm()
-    if request.method == 'POST':
-        form = ConfigurationSocieteForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('backend:index')
+    if request.user.profile.is_entreprise or request.user.profile.is_seller_entreprise:
+        form = ConfigurationSocieteForm()
+        if request.method == 'POST':
+            form = ConfigurationSocieteForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('backend:index')
 
-    context = {
-        'form' : form,
-    }
+        context = {
+            'form' : form,
+        }
 
-    return render(request, 'backend/configration-societe.html', context)
+        return render(request, 'backend/configuration-societe.html', context)
+
+    else:
+
+        return redirect('app:index')
+
+@login_required(login_url='/login/')
+def DetailsSociete(request, pk):
+    if request.user.is_entreprise or request.user.is_seller_entreprise:
+        pass
+
+@login_required(login_url='/login/')
+def UpdateSocieteDetails(request, pk):
+    if request.user.is_entreprise or request.user.is_seller_entreprise:
+        pass
+
+@login_required(login_url='/login/')
+def DeleteSociete(request, pk):
+    if request.user.is_entreprise or request.user.is_seller_entreprise:
+        pass
+    pass
+
 
 ########################################################## GESTION DES TICKETS ###########################################################
 
+@login_required(login_url='/login/')
 def CreateTicket(request):
     form = CreateTicketForm()
     if request.method == 'POST':
@@ -239,9 +353,19 @@ def CreateTicket(request):
 
     return render(request, 'backend/creer-ticket.html', context)
 
+@login_required(login_url='/login/')
+def NotificationCreateTicket():
+    pass
+
+@login_required(login_url='/login/')
 def UpdateTicket(request):
     pass
 
+@login_required(login_url='/login/')
+def NotificationUpdateTicket():
+    pass
+
+@login_required(login_url='/login/')
 def ListeTicket(request):
     result = Ticket.objects.all()
 
@@ -251,6 +375,7 @@ def ListeTicket(request):
 
     return render(request, 'backend/list-tickets.html',context)
 
+@login_required(login_url='/login/')
 def ListDeMesTicket(request):
     result = Ticket.objects.filter(user = request.user)
 
@@ -260,14 +385,26 @@ def ListDeMesTicket(request):
 
     return render(request, 'backend/list-de-mes-ticket.html', context)
 
+@login_required(login_url='/login/')
 def RemoveTicket(request, pk):
     result = Ticket.objects.get(id = pk)
     result.delete()
     return redirect('backend:liste-des-tickets')
 
+
+@login_required(login_url='/login/')
+def NotificationUpdateTicket():
+    pass
+
+@login_required(login_url='/login/')
+def NotificationRemove():
+    pass
+
+@login_required(login_url='/login/')
 def SearchTicket(request):
     pass
 
+@login_required(login_url='/login/')
 def CreateTicketType(request):
     form = CreateTypeTicketForm()
     if request.method == 'POST':
@@ -282,9 +419,20 @@ def CreateTicketType(request):
 
     return render(request, 'backend/creer-type-ticket.html',context)
 
+
+@login_required(login_url='/login/')
+def NotificationCreateTicketType():
+    pass
+
+@login_required(login_url='/login/')
 def UpdateTicketType(request):
     pass
 
+@login_required(login_url='/login/')
+def NotificationUpdateTicketType():
+    pass
+
+@login_required(login_url='/login/')
 def ListeTicketType(request):
     result = TypeTicket.objects.all()
 
@@ -294,17 +442,20 @@ def ListeTicketType(request):
 
     return render(request, 'backend/list-type-tickets.html', context)
 
+@login_required(login_url='/login/')
 def RemoveTicketType(request):
     pass
 
+@login_required(login_url='/login/')
 def SearchTicketType(request):
     pass
+
 
 ########################################################## !GESTION DES TICKETS ###########################################################
 
 ###################################################### GESTION DES EMAILS DE CONTACT ###############################################
 
-
+@login_required(login_url='/login/')
 def ListContact(request):
     result = Contact.objects.all()
     context = {
@@ -312,6 +463,7 @@ def ListContact(request):
     }
     return render(request, 'backend/liste-contact.html', context)
 
+@login_required(login_url='/login/')
 def DetailsContact(request, pk):
     result = Contact.objects.get(id=pk)
     context = {
@@ -319,14 +471,17 @@ def DetailsContact(request, pk):
     }
     return render(request, 'backend/detail-contact.html', context)
 
+@login_required(login_url='/login/')
 def RemoveContact(request, pk):
     result = Contact.objects.get(id=pk)
     result.delete()
     return redirect('backend:list-contact')
 
+@login_required(login_url='/login/')
 def SearchContact(request):
     pass
 
+@login_required(login_url='/login/')
 def ReponsContact(request):
     pass
 
@@ -334,3 +489,19 @@ def ReponsContact(request):
 
 def Tables(request):
     return render(request, 'backend/tables.html')
+
+###################################################### GESTION DU PROFILE ENTREPRISE ###############################################
+
+@login_required(login_url='/login/')
+def EntrepriseProfile(request):
+    if request.user.profile.is_entreprise == True:
+        result = Profile.objects.filter(user = request.user)
+        context = {
+            'result' : result,
+        }
+        return render(request, 'backend/profile-entreprise.html', context)
+    else:
+        return redirect('app:index')
+
+
+##################################################### !GESTION DU PROFILE ENTREPRISE ###############################################

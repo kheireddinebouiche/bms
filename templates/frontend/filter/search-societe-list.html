@@ -1,0 +1,54 @@
+{% extends 'frontend/base.html' %}
+{% block title %} Résultats de recherche {% endblock title %}
+{% load static %}
+
+{% block content %}
+{% include 'frontend/navbar-1.html' %}
+
+
+<section class="section" style="margin-bottom : 300px;">
+
+    {% if object_list.count < 2 %}
+    <center><h3> <b>{{object_list.count}}</b> Résultat trouvé </h3></center>
+    {% else %}
+    <center><h3> <b>{{object_list.count}}</b> Résultats trouvés </h3></center>
+    {% endif %}
+
+</br>
+</br>
+<div class="container">
+
+
+    <table class="table table-bordered table-condensed">
+        <tr>
+            <th>Nom de la société</th>
+            <th>Catégorie</th>
+            <th>Adresse </th>
+            
+        </tr>
+
+        {% if object_list %}
+        {% for object in object_list %}
+        <tr>
+            <td>{{object.designation}}</td>
+            <td>{{object.categorie.desgination}}</td>
+            <td>{{object.adresse}}</td>
+           
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan='3' class="text-center"><b>Aucun résultat trouvés.</b></td>
+                
+        </tr>
+        {% endif %}
+    </table>
+
+
+</div>
+</section>
+
+
+
+{% include 'frontend/footer.html' %}
+{% endblock content %}

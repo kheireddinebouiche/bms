@@ -1,27 +1,57 @@
 {% extends 'backend/base.html' %}
+{% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
-
-<body class="sb-nav-fixed">      
+   
     <div id="layoutSidenav">
         {% include 'backend/nav.html' %}
         
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Secteur D'activité</h1>
+                    <h1 class="mt-4">Mon entreprise</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="{% url 'backend:index' %}">Tableau de bord</a></li>
-                        <li class="breadcrumb-item active">Ajouter un secteur</li>
+                        <li class="breadcrumb-item active">Configurer mon entreprise</li>
                     </ol>
 
                     <div class="card mb-4">
                         <div class="card-body">
                             <form method="post">
                                 {% csrf_token %}
-                                {{form|crispy}}
+
+                                <label class="mb-2"><b>{{form.designation.label}}</b></label>
+                                {{form.designation}}
+
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="mb-2"><b>{{form.pays.label}}</b></label>
+                                        {{form.pays}}
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="mb-2"><b>{{form.province.label}}</b></label>
+                                        {{form.province}}
+                                    </div> 
+                                    <div class="form-group col-md-4">
+                                        <label class="mb-2"><b>{{form.num_dep.label}}</b></label>
+                                        {{form.num_dep}}
+                                    </div>         
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="mb-2"><b>{{form.adresse.label}}</b></label>
+                                        {{form.adresse}}
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="mb-2"><b>{{form.adresse_2.label}}</b></label>
+                                        {{form.adresse_2}}
+                                    </div>         
+                                </div>
+
+
                             </br>
-                                <center><a class="btn btn-primary" type="submit">Enregistrer</a></center>
+                                <center><button class="btn btn-warning float-start" type="submit"><b>Passer les étapes de configuration</b></button></center>
+                                <center><button class="btn btn-primary float-end "  type="submit"><b>Enregistrer mes informations</b></button></center>                 
                             </form>
                         </div>
                     </div>                  

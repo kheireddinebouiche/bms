@@ -6,8 +6,11 @@ app_name="backend"
 
 urlpatterns = [
 
-   path('',index,name="index"),
+   path('',BackIndex,name="index"),
    path('configuration-societe/',ConfigurationSociete, name="conf-societe"),
+
+   path('mon-compte/',EntrepriseProfile, name="mon-compte"),
+   
    path('tables/',Tables, name="tables"),
 
    path('ajouter-un-service/',CreatService, name="ajouter-service"),
@@ -31,6 +34,11 @@ urlpatterns = [
    path('ajouter-un-secteur/',CreateSecteur, name="ajouter-un-secteur"),
    path('liste-des-secteurs/',ListeSecteur,name="liste-des-secteurs"),
    path('supprimer-un-secteur/',RemoveSecteur, name="supprimer-un-secteur"),
+
+   path('create-categorie/',CreateCategorie, name="create-categorie"),
+   path('liste-categorie/',ListeCategorie, name="list-categorie"),
+   path('mise-a-jour-categorie/<int:pk>/',UpdateCategorie, name="update-categorie"),
+   path('suppression-categorie/<int:pk>/', DeleteSecteur, name="delete-categorie"),
 
    path('configuration-societe/', ConfigreMySociete, name="configuration-societe"),
    

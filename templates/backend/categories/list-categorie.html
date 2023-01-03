@@ -1,0 +1,61 @@
+{% extends 'backend/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+     
+    <div id="layoutSidenav">
+        {% include 'backend/nav.html' %}
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Catégories</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item"><a href="{% url 'backend:index' %}">Tableau de bord</a></li>
+                        <li class="breadcrumb-item active">Liste ds catégories</li>
+                    </ol>
+                    
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <table id="datatablesSimple">
+                                <thead>
+                                    <tr>
+                                        <th>ID.</th>
+                                        <th>Designation</th>
+                                        <th>Secteur</th>
+                                        <th>Date de création</th>
+                                        <th>Dérniere modification</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    {% for r in result %}
+                                    <tr>
+                                        <td>{{r.id}}</td>
+                                        <td>{{r.designation}}</td>
+                                        <td>{{r.secteur}}</td>
+                                        <td>{{r.created_at}}</td>
+                                        {% if r.udpated_at %}
+                                        <td>{{r.updated_at}}</td>
+                                        {% else %}
+                                        <td>Aucune dérniere modification</td>
+                                        {% endif %}
+                                        <td><center>
+                                            <a href="{% url 'backend:update-categorie' r.pk %}"><i class="fa-regular fa-pen-to-square"></i></a>
+                                            <a href="{% url 'backend:delete-categorie' r.pk %}"><i class="fa-solid fa-trash"></i></a>
+                                        </center>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}           
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            {% include 'backend/footer.html' %}
+        </div>
+    </div>
+
+
+{% endblock content %}

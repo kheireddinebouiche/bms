@@ -1,20 +1,18 @@
 {% extends 'frontend/base.html' %}
+{% block title %}Inscription {% endblock title %}
 {% load crispy_forms_tags %}
-{% block title %} Devenir membre {% endblock title %}
-
 {% block content %}
-
 {% include 'frontend/navbar.html' %}
 
 
- <section class="section">
+<section class="section">
     <div class="container col-md-6 py-4">
         <center><h2 class="mt-4 mb-3">Devenir membre</h2></center>
         <form method="POST">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-6">
-                    {{form|crispy}}
+                    {{form1|crispy}}
                 </div>
 
                 <div class="col-md-6">
@@ -26,10 +24,8 @@
 
 </div>
 </section>
-    
+
 
 
 {% include 'frontend/footer.html' %}
-
-
 {% endblock content %}

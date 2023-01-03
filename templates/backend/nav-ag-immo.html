@@ -7,10 +7,6 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Tableau de bord
                 </a>
-                <a class="nav-link" href="{% url 'backend:mon-compte' %}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    Mon Entreprise
-                </a>
                 <div class="sb-sidenav-menu-heading">Actions</div>
 
                 <!-- Actions sur les compte professionnels -->
@@ -46,20 +42,6 @@
                     </nav>
                 </div>
                 <!-- ! Actions sur les comptes clients  -->
-
-                <!-- Actions sur les comptes Agence Immobiliere  -->
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayout" aria-expanded="false" aria-controls="collapseLayouts">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-user-tie"></i></div>
-                    Agence Immobiliere
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="collapseLayout" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{% url 'backend:liste-profs' %}">Liste des Agences</a>
-                        <a class="nav-link" href="layout-sidenav-light.html">Demande d'inscription</a>
-                    </nav>
-                </div>
-                <!-- ! Actions sur les comptes Agence Immobiliere  -->
                 
                 <!-- Actions sur les services -->
                 <div class="sb-sidenav-menu-heading">Services</div>
@@ -82,8 +64,7 @@
                 <!-- Actions sur les services -->
 
                 <!-- Actions sur les secteur d'activités -->
-                {% if request.user.is_staff %}
-                <div class="sb-sidenav-menu-heading">Secteurs & Categorie</div>
+                <div class="sb-sidenav-menu-heading">Secteurs</div>
                 <a class="nav-link" href="{% url 'backend:liste-des-secteurs' %}">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                         Secteurs d'activités
@@ -91,20 +72,17 @@
                 <a class="nav-link" href="{% url 'backend:ajouter-un-secteur' %}">
                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         Ajouter un secteur
-                </a>
-                <a class="nav-link" href="{% url 'backend:list-categorie' %}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        Liste des catégories
-                </a>
-                <a class="nav-link" href="{% url 'backend:create-categorie' %}">
+                </a><a class="nav-link" href="{% url 'backend:ajouter-un-secteur' %}">
                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         Ajouter une catégorie
                 </a>
-                {% endif %}
-                
+                <a class="nav-link" href="{% url 'backend:ajouter-un-secteur' %}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Liste des catégories
+                </a>
                 <!-- Actions sur les secteur d'activités -->
 
-                {% if  request.user.is_staff %}
+                {% if not request.user.is_staff %}
                 <!-- Actions sur les tickets -->
                 <div class="sb-sidenav-menu-heading">Tickets</div>
                 <a class="nav-link" href="{% url 'backend:liste-des-tickets' %}">

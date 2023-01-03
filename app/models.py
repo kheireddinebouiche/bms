@@ -21,7 +21,7 @@ class Secteur(models.Model):
 
 class Categorie(models.Model):
     designation = models.CharField(max_length=40, blank=True, null=True)
-    cat = models.ForeignKey(Secteur, on_delete=models.DO_NOTHING)
+    secteur = models.ForeignKey(Secteur, on_delete=models.DO_NOTHING)
 
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
@@ -39,16 +39,21 @@ class Profile(models.Model):
     adresse = models.CharField(max_length=30, blank=True)
 
     secteur = models.ForeignKey(Secteur, null=True, blank=True, on_delete=models.DO_NOTHING)
+    categorie= models.ForeignKey(Categorie, null=True, blank=True, on_delete=models.DO_NOTHING)
+    
     image = models.ImageField(null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     telephone = PhoneNumberField(null=True, blank=True)  
     date_naissance = models.DateField(null=True, blank=True)
+
     is_client = models.BooleanField(null=True,blank=True, default=False)
     is_entreprise = models.BooleanField(null=True, blank=True)
     is_configured = models.BooleanField(null=True, blank=True)
+    is_seller_entreprise = models.BooleanField(null=True, blank=True)
+    is_seller_individual = models.BooleanField(null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True,null=True, blank=True)
-    updated_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
     
 
     def __str__(self):  # __unicode__ for Python 2
@@ -61,10 +66,11 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     instance.profile.save()
 
 class Societe(models.Model):
-    gerant = models.OneToOneField(User, on_delete=models.CASCADE)
+    gerant = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     designation = models.CharField(max_length =100, null=True, blank=True)
 
     pays = CountryField(null=True, blank=True)
+    province = models.CharField(max_length=100, null=True, blank=True)
     adresse = models.CharField(max_length=30, blank=True)
     adresse_2 = models.CharField(max_length=200, null=True, blank=True)
     num_dep = models.CharField(max_length=2, null=True, blank=True)
@@ -74,6 +80,8 @@ class Societe(models.Model):
     email = models.EmailField(null=True, blank=True)
     secteur = models.ForeignKey(Secteur, null=True, blank=True ,on_delete=models.DO_NOTHING)
     categorie = models.ForeignKey(Categorie, null=True, blank=True, on_delete=models.DO_NOTHING)
+
+    num_rcs = models.CharField(max_length=30, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)

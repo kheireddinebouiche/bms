@@ -1,0 +1,100 @@
+{% extends 'frontend/base.html' %}
+{% block title %} Devenir Membre - Choix du profile {% endblock title %}
+{% load static %}
+
+{% block content %}
+{% include 'frontend/navbar.html' %}
+
+<!-- Pricing start -->
+<section class="section" id="pricing">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-7 text-center">
+                <h2 class="fw-bold">Sélectionnez votre profile</h2>
+                <p class="text-muted">Pour devenir membre veuillez sélectionner en entre un compte vendeur entreprise, individuelle ou préstataire (Avocat, entreprises de construction, etc...</p>
+            </div>
+        </div>
+        <!-- end row -->
+        <div class="row">
+            <div class="col-lg-12">
+                
+                <div class="tab-content" id="pricingpills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-monthly" role="tabpanel" aria-labelledby="pills-monthly-tab">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
+                                    <div class="card-body px-4 py-5">
+                                        <!-- <div class="icon-mono avatar-md bg-soft-primary text-primary rounded mx-auto mb-5"><i class="icon-lg" data-feather="circle"></i></div> -->
+                                        <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
+                                            <img src="images/pricing/1.png" alt="" class="img-fluid d-block mx-auto" />
+                                        </div>
+                                        <h4 class="text-uppercase mb-4 pb-1">Particulier</h4>
+                                        
+                                        {% comment %} <p class="text-dark font-size-16 font-weight-semibold mb-4">$9.00 / Month</p> {% endcomment %}
+                                        {% if not request.user.is_authenticated %}
+                                         <a href="{% url 'app:register-seller-ind' %}" class="btn btn-soft-primary">M'inscrir maintenant</a>
+                                        {% else %}
+                                        <a href="#" class="btn btn-soft-primary">Veuillez vous déconnecter</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end col -->
+                            <div class="col-lg-4">
+                                <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
+                                    <div class="card-body px-4 py-5">
+                                        <!-- <div class="icon-mono avatar-md bg-soft-primary text-primary rounded mx-auto mb-5"><i class="icon-lg" data-feather="square"></i></div> -->
+                                        <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
+                                            <img src="images/pricing/2.png" alt="" class="img-fluid d-block mx-auto" />
+                                        </div>
+                                        <h4 class="text-uppercase mb-4 pb-1">Agence immobilière</h4>
+                                        
+                                        {% comment %} <p class="text-dark font-size-16 font-weight-semibold mb-4">$39.00 / Month</p> {% endcomment %}
+                                        {% if not request.user.is_authenticated %}
+                                          <a href="{% url 'app:register-seller-ent' %}" class="btn btn-primary">M'inscrir maintenant</a>
+                                        {% else %}  
+                                          <a href="#" class="btn btn-primary">Veuillez vous déconnecter</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end col -->
+                            <div class="col-lg-4">
+                                <div class="card plan-card mt-4 rounded text-center border-0 shadow overflow-hidden">
+                                    <div class="card-body px-4 py-5">
+                                        <!-- <div class="icon-mono avatar-md bg-soft-primary text-primary rounded mx-auto mb-5"><i class="icon-lg" data-feather="triangle"></i></div> -->
+                                        <div class="icon-mono avatar-md bg-soft-primary rounded mx-auto mb-5 p-3">
+                                            <img src="images/pricing/3.png" alt="" class="img-fluid d-block mx-auto" />
+                                        </div>
+                                        <h4 class="text-uppercase mb-4 pb-1">Prestataires</h4>
+                                        
+                                        {% comment %} <p class="text-dark font-size-16 font-weight-semibold mb-4">$79.00 / Month</p> {% endcomment %}
+                                        {% if not request.user.is_authenticated %}
+                                           <a href="{% url 'app:register-pro' %}" class="btn btn-soft-primary">M'inscrir maintenant</a>
+                                        {% else %}
+                                           <a href="#" class="btn btn-soft-primary">Veuillez vous déconnecter</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                    </div>
+                    <!-- end monthly tab pane -->
+
+                   
+                </div>
+                <!-- end tab content -->
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- end container -->
+</section>
+<!-- Pricing end -->
+
+
+{% include 'frontend/footer.html' %}
+{% endblock content %}

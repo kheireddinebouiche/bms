@@ -42,11 +42,10 @@ INSTALLED_APPS = [
     'app',
     'backend',
     'crispy_forms',
+    'estate',
     'marketing',
     'django_countries',
-    'phonenumber_field',
-    
-    
+    'phonenumber_field', 
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
