@@ -53,6 +53,7 @@ urlpatterns = [
    path('supprimer-compte/<int:pk>/',RemovePofile, name="supprimer-compte"),
    path('activation-compte/<int:pk>/',ActivateProfile, name="activation-compte"),
    path('desactivation-compte/<int:pk>/', DeactivateProfile, name="desactivation-compte"),
+   path('list-demande-inscription-ag/',ListDemandeAgImm, name="demande-inscription-ag"),
 
 
 ]

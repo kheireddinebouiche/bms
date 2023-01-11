@@ -242,6 +242,7 @@ def RegisterSellerEntreprise(request):
     else:
         return redirect('app:index')
 
+
 #a traiter
 #redirection aprés inscription
 def RedirectRegister(request):

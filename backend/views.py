@@ -67,7 +67,7 @@ def ListPros(request):
             'result' : result,
         }
 
-        return render(request, 'backend/list_pros.html', context)
+        return render(request, 'backend/profiles/list_pros.html', context)
 
     else:
 
@@ -76,24 +76,27 @@ def ListPros(request):
 @login_required(login_url='/login/')
 def ListClient(request):
 
-    if request.user.is_entreprise == True:
+    if request.user.is_staff == True:
 
-        result = Profile.objects.filter(is_entreprise = False)
+        result = Profile.objects.filter(is_client = True)
         context = {
             'result': result,
         }
-        return render(request, 'backend/list_client.html', context)
+        return render(request, 'backend/profiles/list_client.html', context)
     else:
 
         return redirect('app:index')
 
 @login_required(login_url='/login/')
 def SellerIndividual(request):
-    result = Profile.objects.filter(is_seller_individual = True)
-    context = {
-        'result' : result,
-    }
-    return render(request, 'backend/list-seller.html',context)
+    if request.user.is_staff:
+        result = Profile.objects.filter(is_seller_individual = True)
+        context = {
+            'result' : result,
+        }
+        return render(request, 'backend/profiles/list-seller.html',context)
+    else:
+        return redirect('app:index')
 
 @login_required(login_url='/login/')
 def SellerEntreprise(request):
@@ -102,6 +105,17 @@ def SellerEntreprise(request):
         'result' : result,
     }
     return render(request, 'backend/list-seller.html', context)
+
+@login_required(login_url='/login/')
+def ListDemandeAgImm(request):
+    if request.user.is_staff:
+        result = Profile.objects.filter(user__is_active = False)
+        context = {
+            'result' : result,
+        }
+        return render(request, 'backend/profiles/demandes-ins-ag-im.html', context)
+    else:
+        return redirect('app:index')
 
 @login_required(login_url='/login/')
 def ActivateProfile(request, pk):

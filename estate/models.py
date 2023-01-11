@@ -39,6 +39,13 @@ class Proprietes(models.Model):
     province = models.CharField(max_length=200,null=True, blank=True)
     etat= models.CharField(max_length=200,null=True, blank=True)
 
+    chambre = models.IntegerField(null=True, blank=True)
+    bains = models.IntegerField(null=True, blank=True)
+    
+    options = models.ManyToManyField("ProprieteOptions")
+
+    agent = models.ForeignKey(User, related_name='agent', null=True, blank=True, on_delete=models.DO_NOTHING)
+
     selling_price = models.DecimalField(max_digits=10,null=True, blank=True, decimal_places=2)
     rental_price = models.DecimalField(max_digits=10,null=True, blank=True, decimal_places=2)
     rental_mode = models.CharField(max_length=3, choices=RENTAL_CHOICE ,null=True, blank=True) 
@@ -89,6 +96,7 @@ class ProprieteOptions(models.Model):
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
 
     description = models.CharField(max_length=100, null=True, blank=True)
+    observation = models.CharField(max_length=100, null=True, blank=True)
 
 
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
@@ -101,3 +109,34 @@ class ProprieteOptions(models.Model):
 
     def __str__(self):
         return self.description
+
+
+class Comments(models.Model):
+    user= models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+    commentaire = models.TextField(max_length=1000, null=True, blank=True)
+    propriete = models.ForeignKey(Proprietes, null=True, blank=True, on_delete=models.CASCADE)
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+
+    class Meta:
+        verbose_name="Commentaire"
+        verbose_name_plural="Commentaires"
+
+    def __str__(self):
+        return self.user
+
+class Response(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    comments = models.ForeignKey(Comments, on_delete=models.CASCADE, null=True, blank=True)
+    reponse = models.TextField(max_length=1000, null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+
+    class Meta:
+        verbose_name="Réponse"
+        verbose_name_plural="Réponses"
+    
+    def __str__(self):
+        return self.user

@@ -35,9 +35,7 @@
                 </a>
                 <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                            Liste des clients                                      
-                        </a>
+                        <a class="nav-link" href="{% url 'backend:liste-client' %}"> Liste des clients </a>
                         
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
                             Ajouter un client       
@@ -56,7 +54,7 @@
                 <div class="collapse" id="collapseLayout" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="{% url 'backend:liste-profs' %}">Liste des Agences</a>
-                        <a class="nav-link" href="layout-sidenav-light.html">Demande d'inscription</a>
+                        <a class="nav-link" href="{% url 'backend:demande-inscription-ag' %}">Demande d'inscription</a>
                     </nav>
                 </div>
                 <!-- ! Actions sur les comptes Agence Immobiliere  -->
@@ -141,6 +139,17 @@
                         Liste des contacts
                 </a>
                 <!--! Liste des contacts-->
+
+                <div class="sb-sidenav-menu-heading">Propriétés</div>
+                <a class="nav-link" href="{% url 'estate:list-des-propriete' %}">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-plus"></i></div>
+                        Liste des propriétés
+                </a>
+                <a class="nav-link" href="{% url 'estate:creer-propriete' %}">
+                    <div class="sb-nav-link-icon"><i class="fa-regular fa-rectangle-list"></i></div>
+                        Ajouter
+                </a>
+              
 
             </div>
         </div>

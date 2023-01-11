@@ -12,36 +12,18 @@
                 <!-- Actions sur les compte professionnels -->
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-user-tie"></i></div>
-                    Professionels
+                    Immobilier
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{% url 'backend:liste-profs' %}">Liste des professionnels</a>
-                        <a class="nav-link" href="layout-sidenav-light.html">Ajouter un compte</a>
+                        <a class="nav-link" href="#">Annoces</a>
+                        <a class="nav-link" href="#">Créer une annonce</a>
                     </nav>
                 </div>
                 <!-- ! Actions sur les compte professionnels -->
 
-                <!-- Actions sur les comptes clients  -->
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                    <div class="sb-nav-link-icon"><i class="fa-regular fa-user"></i></div>
-                    Clients
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                            Liste des clients                                      
-                        </a>
-                        
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                            Ajouter un client       
-                        </a>
-                       
-                    </nav>
-                </div>
-                <!-- ! Actions sur les comptes clients  -->
+                
                 
                 <!-- Actions sur les services -->
                 <div class="sb-sidenav-menu-heading">Services</div>
@@ -49,57 +31,17 @@
                 <a class="nav-link" href="{% url 'backend:ajouter-service' %}">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                         Ajouter un service
-                </a>
-                {% if request.user.is_staff %}
-                <a class="nav-link" href="{% url 'backend:liste-des-services' %}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        Liste des services
-                </a>
-                {% else %}
+                </a>       
                 <a class="nav-link" href="{% url 'backend:show-my-services' %}">
                     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         Mes services
-                </a>
-                {% endif %}
+                </a>      
                 <!-- Actions sur les services -->
 
-                <!-- Actions sur les secteur d'activités -->
-                <div class="sb-sidenav-menu-heading">Secteurs</div>
-                <a class="nav-link" href="{% url 'backend:liste-des-secteurs' %}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                        Secteurs d'activités
-                </a>
-                <a class="nav-link" href="{% url 'backend:ajouter-un-secteur' %}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        Ajouter un secteur
-                </a><a class="nav-link" href="{% url 'backend:ajouter-un-secteur' %}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        Ajouter une catégorie
-                </a>
-                <a class="nav-link" href="{% url 'backend:ajouter-un-secteur' %}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        Liste des catégories
-                </a>
-                <!-- Actions sur les secteur d'activités -->
 
                 {% if not request.user.is_staff %}
                 <!-- Actions sur les tickets -->
-                <div class="sb-sidenav-menu-heading">Tickets</div>
-                <a class="nav-link" href="{% url 'backend:liste-des-tickets' %}">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-ticket"></i></div>
-                        Liste des tickets
-                </a>
-                <a class="nav-link" href="#">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-ticket"></i></div>
-                        Liste des catégories
-                </a>
-                <a class="nav-link" href="{% url 'backend:creer-type-ticket' %}">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-ticket"></i></div>
-                        Créer une catégorie
-                </a>
-                <!-- Actions sur les tickets -->
-                {% else %}
-                <!-- Actions sur les tickets -->
+                
                 <div class="sb-sidenav-menu-heading">Tickets</div>
                 <a class="nav-link" href="{% url 'backend:creer-un-ticket' %}">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-plus"></i></div>
@@ -110,7 +52,7 @@
                         Liste de mes tickets
                 </a>
                 <!-- Actions sur les tickets -->
-                {% endif %}
+
 
                 <!--Liste des contacts-->
                 <div class="sb-sidenav-menu-heading">Contacts</div>
